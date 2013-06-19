@@ -3,7 +3,7 @@ Contributors: feedmeastraycat
 Tags: widget, wysiwyg, editor
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: MIT
 
 	WP Editor Widget adds a WYSIWYG widget using the wp_editor().
@@ -20,6 +20,9 @@ adding a custom post type for each widget.
 2. Activate the pluing under 'Plugins' in the WordPress admin area
 
 == Changelog ==
+
+= 0.1.1 =
+* CSS fix for widget editor close button
 
 = 0.1.0 =
 * First stable proof of concept version.
