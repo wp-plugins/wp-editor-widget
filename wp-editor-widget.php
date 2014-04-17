@@ -4,7 +4,7 @@ Plugin Name: WP Editor Widget
 Plugin URI: https://github.com/feedmeastraycat/wp-editor-widget
 Description: WP Editor Widget adds a WYSIWYG widget using the wp_editor().
 Author: David M&aring;rtensson, Odd Alice
-Version: 0.5.0
+Version: 0.5.1
 Author URI: http://www.feedmeastraycat.net/
 Text Domain: wp-editor-widget
 Domain Path: /langs
@@ -27,7 +27,7 @@ class WPEditorWidget {
 	/**
 	 * @var string
 	 */
-	const VERSION = "0.5.0";
+	const VERSION = "0.5.1";
 
 	/**
 	 * Action: init
@@ -38,7 +38,8 @@ class WPEditorWidget {
 		add_action( 'load-widgets.php', array( $this, 'load_admin_assets' ) );
 		add_action( 'load-customize.php', array( $this, 'load_admin_assets' ) );
 		add_action( 'widgets_admin_page', array( $this, 'output_wp_editor_widget_html' ), 100 );
-		add_action( 'customize_controls_print_footer_scripts', array( $this, 'output_wp_editor_widget_html' ) );
+		add_action( 'customize_controls_print_footer_scripts', array( $this, 'output_wp_editor_widget_html' ), 1 );
+		add_action( 'customize_controls_print_footer_scripts', array( $this, 'customize_controls_print_footer_scripts' ), 2 );
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
 	} // END __construct()
@@ -99,6 +100,18 @@ class WPEditorWidget {
 		<?php
 		
 	} // END output_wp_editor_widget_html
+	
+	/**
+	 * Action: customize_controls_print_footer_scripts
+	 */
+	public function customize_controls_print_footer_scripts() {
+	
+		// Because of https://core.trac.wordpress.org/ticket/27853		
+		if ( class_exists( '_WP_Editors' ) ) {
+			_WP_Editors::enqueue_scripts();
+		}
+		
+	} // END customize_controls_print_footer_scripts
 
 	/**
 	 * Action: widgets_init
